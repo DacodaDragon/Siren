@@ -28,6 +28,7 @@ namespace Siren.Editor
 
 		private void Awake()
 		{
+			minSize = new Vector2(900, 400);
 			titleContent = new GUIContent("Audio System", "Used for editing what sounds belong to wha");
 		}
 
