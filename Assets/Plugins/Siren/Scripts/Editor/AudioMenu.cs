@@ -8,22 +8,10 @@ namespace Siren.Editor
     /// </summary>
     public class AudioMenu
     {
-        [MenuItem("Assets/Create/Audio/AudioAsset")]
-        public static void CreateAudioAsset() => AssetUtil.Create<AudioAsset>();
-
-        [MenuItem("Assets/Create/Audio/AudioAssetLibrary")]
-        public static void CreateAudioLibrary() => AssetUtil.Create<AudioAssetLibrary>();
-
-        [MenuItem("Window/AudioSystem")]
+        [MenuItem("Window/Siren/SFX")]
         public static void ShowWindow()
         {
             EditorWindow.GetWindow<AudioSystemWindow>();
-        }
-
-        [MenuItem("Window/AudioAsset")]
-        public static void ShowAudioAssetWindow()
-        {
-            EditorWindow.GetWindow<CreateAssetPopup<AudioAsset>>();
         }
     }
 }
