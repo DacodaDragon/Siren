@@ -17,7 +17,7 @@ namespace Siren.Editor
 				return;
 
 			GameObject gameObject = new GameObject {
-				hideFlags = HideFlags.HideAndDontSave
+				hideFlags = HideFlags.DontSave
 			};
 
 			_AudioSource = gameObject.AddComponent<AudioSource>();
