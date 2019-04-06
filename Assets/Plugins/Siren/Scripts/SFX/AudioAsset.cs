@@ -10,8 +10,8 @@ namespace Siren
     {
 		private const int INVALID_INDEX = -1;
 
-		[SerializeField] private AudioMixerGroup _AudioMixerGroup;
-        [SerializeField] private AudioClip[] _AudioClips;
+		[SerializeField] private AudioMixerGroup _AudioMixerGroup = null;
+        [SerializeField] private AudioClip[] _AudioClips = null;
         [SerializeField] private float _Volume = 1;
         [SerializeField] private float _Pan = 1;
 

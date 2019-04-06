@@ -9,7 +9,7 @@ namespace Siren
     public class AudioAssetLibrary : ScriptableObject
     {
         [FormerlySerializedAs("AudioIndentifier")]
-        [SerializeField] private AudioIdentifierMapping[] _AudioAssetIdentifierMappings;
+        [SerializeField] private AudioIdentifierMapping[] _AudioAssetIdentifierMappings = new AudioIdentifierMapping[0];
 
         /// <summary>
         /// Resolves an indentifier to an audio asset.
