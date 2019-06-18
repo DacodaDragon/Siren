@@ -16,7 +16,7 @@ public class TestBehaviour : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(0.3f);
-			Siren.Audio.SendEvent(new Siren.AudioEvent(this, Siren.AudioCommands.PLAY, "debug"));
+			Siren.Audio.SendSFXEvent(new Siren.AudioEvent(this, Siren.AudioCommands.PLAY, "debug"));
 		}
 	}
 }

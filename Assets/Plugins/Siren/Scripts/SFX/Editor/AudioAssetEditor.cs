@@ -23,7 +23,13 @@ namespace Siren.Editor
 		private SerializedProperty _PitchMax;
 		private SerializedProperty _AvoidRepetition;
 		private SerializedProperty _Volume;
+		private SerializedProperty _Doppler;
+		private SerializedProperty _SpatialBlend;
 		private SerializedProperty _Pan;
+		private SerializedProperty _Looped;
+		private SerializedProperty _MaxDistance;
+		private SerializedProperty _MinDistance;
+		private SerializedProperty _RandomStartPosition;
 
 		private Vector3 _ScrollVector;
 
@@ -46,10 +52,16 @@ namespace Siren.Editor
 			_ClipList = _SerializedTarget.FindProperty("_AudioClips");
 			_PitchMin = _SerializedTarget.FindProperty("_PitchMin");
 			_PitchMax = _SerializedTarget.FindProperty("_PitchMax");
+			_Looped = _SerializedTarget.FindProperty("_Looped");
+			_MaxDistance = _SerializedTarget.FindProperty("_MaxDistance");
+			_MinDistance = _SerializedTarget.FindProperty("_MinDistance");
 			_Pan = _SerializedTarget.FindProperty("_Pan");
 			_AudioMixerGroup = _SerializedTarget.FindProperty("_AudioMixerGroup");
 			_Volume = _SerializedTarget.FindProperty("_Volume");
 			_AvoidRepetition = _SerializedTarget.FindProperty("_AvoidRepetition");
+			_Doppler = _SerializedTarget.FindProperty("_Doppler");
+			_SpatialBlend = _SerializedTarget.FindProperty("_SpatialBlend");
+			_RandomStartPosition = _SerializedTarget.FindProperty("_RandomStartPosition");
 			_SelectableList.ResetSelection();
 		}
 
@@ -116,6 +128,23 @@ namespace Siren.Editor
 			_AvoidRepetition.boolValue = EditorGUILayout.Toggle(_AvoidRepetitionContent, _AvoidRepetition.boolValue);
 
 			GUILayout.EndVertical();
+
+
+			EditorGUILayout.LabelField("Audio source settings");
+
+			GUILayout.BeginVertical(GUI.skin.box);
+			EditorGUILayout.LabelField("Doppler (2D - 3D)");
+			_Doppler.floatValue = EditorGUILayout.Slider(_Doppler.floatValue, 0, 5f);
+			EditorGUILayout.LabelField("SpatialBlend (2D - 3D)");
+			_SpatialBlend.floatValue = EditorGUILayout.Slider(_SpatialBlend.floatValue, 0, 1f);
+			EditorGUILayout.LabelField("MaxDistance");
+			_MaxDistance.floatValue = EditorGUILayout.FloatField(_MaxDistance.floatValue);
+			EditorGUILayout.LabelField("MinDistance");
+			_MinDistance.floatValue = EditorGUILayout.FloatField(_MinDistance.floatValue);
+			_Looped.boolValue = EditorGUILayout.Toggle("Looped", _Looped.boolValue);
+			_RandomStartPosition.boolValue = EditorGUILayout.Toggle("Random Start Position", _RandomStartPosition.boolValue);
+			GUILayout.EndVertical();
+
 		}
 
 		public void DrawClipList()
@@ -123,7 +152,7 @@ namespace Siren.Editor
 			GUILayout.BeginVertical(GUI.skin.box);
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Sound clips");
-			
+
 			if (GUILayout.Button("Nuke"))
 			{
 				EditorWindow.CreateInstance<ConfirmActionPopup>()

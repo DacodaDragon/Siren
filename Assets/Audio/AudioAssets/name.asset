@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2588a25b0087bc84caa0325c7f36f85c, type: 3}
   m_Name: name
   m_EditorClassIdentifier: 
-  _AudioMixerGroup: {fileID: 24300002, guid: 09abe38f49633e54fb6ab9c14c6927a6, type: 2}
+  _AudioMixerGroup: {fileID: 0}
   _AudioClips:
   - {fileID: 8300000, guid: 87e25a8d611d7c445b7197407bfaff11, type: 3}
   _Volume: 2
   _Pan: -0.795
-  _PitchMin: -0.19000006
-  _PitchMax: -0.109999895
+  _PitchMin: -2
+  _PitchMax: -1.3299999
   _AvoidRepetition: 1

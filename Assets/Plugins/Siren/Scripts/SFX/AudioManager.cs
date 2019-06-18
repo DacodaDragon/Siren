@@ -5,13 +5,13 @@ namespace Siren
     /// <summary>
     /// Basically processes audio events and sends necessary information all over the place.
     /// </summary>
-    public class AudioManager
+    public class SFXManager
     {
         private const int AUDIO_CHANNEL_COUNT = 20;
         private AudioAssetLibrary[] _Libraries;
         private AudioChannelPool _AudioChannelPool;
 
-        public AudioManager()
+        public SFXManager()
         {
             _AudioChannelPool = new AudioChannelPool(AUDIO_CHANNEL_COUNT);
             _Libraries = FindAudioLibraries();
@@ -49,7 +49,7 @@ namespace Siren
 				return;
 
 			_AudioChannelPool.Play(asset,
-                audioEvent.Context);
+				audioEvent);
         }
 
         private AudioAsset ResolveAsset(AudioEvent audioEvent)

@@ -9,14 +9,19 @@ namespace Siren
 	{
 		private GameObject _GameObject;
 		private AudioSource _AudioSource;
+		private UnityCallbackBehaviour _Callbacks;
+		private TransformFollower _TransformFollower;
+		private int _ChannelNumber;
 
 		public object Context { get; private set; } = null;
+		public bool IsFree { get; private set; } = true;
 
-		public bool IsFree => !_AudioSource.isPlaying;
-
-		public AudioChannel(Transform parent = null, int channelNumber = -1)
+		public AudioChannel(Transform parent, UnityCallbackBehaviour callbacks, int channelNumber = -1)
 		{
+			_Callbacks = callbacks;
+			_ChannelNumber = channelNumber;
 			_GameObject = new GameObject($"Audio Channel {channelNumber}");
+			_TransformFollower = new TransformFollower(callbacks, _GameObject.transform);
 
 			if (parent)
 			{
@@ -27,21 +32,39 @@ namespace Siren
 			_AudioSource = _GameObject.AddComponent<AudioSource>();
 		}
 
-		public void Play(AudioAsset asset, object context)
+		public void Update()
 		{
-#if UNITY_EDITOR // for debugging purposes
-			_GameObject.transform.SetAsFirstSibling();
-#endif
-			_GameObject.SetActive(true);
-			Context = context;
+			if (!IsFree && !_AudioSource.isPlaying)
+			{
+				_TransformFollower.StopFollowing();
+				_Callbacks.OnUpdate -= Update;
+				IsFree = true;
+				_GameObject.name = $"Audio Channel {_ChannelNumber}";
+			}
+		}
 
+		public void Play(AudioAsset asset, AudioEvent audioEvent)
+		{
+			IsFree = false;
+
+			if (audioEvent.FollowTransform)
+				_TransformFollower.StartFollowing(audioEvent.FollowTransform);
+			_GameObject.transform.position = audioEvent.WorldPosition;
+
+			_Callbacks.OnUpdate -= Update;
+			_Callbacks.OnUpdate += Update;
+
+			_GameObject.SetActive(true);
+			Context = audioEvent.Context;
 			AudioSysUtil.ConfigureAudioSource(_AudioSource, asset);
 			_AudioSource.Play();
+			_GameObject.name = $"Audio Channel {_ChannelNumber}: {audioEvent.Identifier}";
 		}
 
 		public void Stop()
 		{
-			_AudioSource.Stop();
+			if (_AudioSource)
+				_AudioSource.Stop();
 		}
 	}
 }
